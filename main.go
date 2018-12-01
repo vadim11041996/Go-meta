@@ -16,7 +16,9 @@ func main() {
 
 	//goroutine
 	go count("first task")
-	count("seccond task")
+	go count("seccond task")
+
+	fmt.Scanln() // will execute the code until we press enter
 
 	//sum
 	result := sum(2, 3)
