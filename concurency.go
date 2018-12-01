@@ -6,20 +6,26 @@ import (
 )
 
 func Concurency() {
-	c := make(chan string)
-	go count("task", c)
+	c1 := make(chan string)
+	c2 := make(chan string)
 
-	for msg := range c {
-		fmt.Println(msg)
+	go func() {
+		for {
+			c1 <- "Every 500ms"
+			time.Sleep(time.Millisecond * 500)
+		}
+	}()
+
+	go func() {
+		for {
+			c2 <- "Every 2 secconds"
+			time.Sleep(time.Millisecond * 2000)
+		}
+	}()
+
+	for {
+		fmt.Println(<-c1)
+		fmt.Println(<-c2)
 	}
 
-}
-
-func count(task string, c chan string) {
-	for i := 1; i <= 5; i++ {
-		c <- task
-		time.Sleep(time.Millisecond * 500)
-	}
-
-	close(c)
 }
