@@ -4,8 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"math"
-	"sync"
-	"time"
 )
 
 type person struct {
@@ -14,15 +12,7 @@ type person struct {
 }
 
 func main() {
-	var wg sync.WaitGroup
-	wg.Add(1)
-
-	go func() {
-		count("sheep")
-		wg.Done()
-	}()
-
-	wg.Wait()
+	Concurency()
 
 	//sum
 	result := sum(2, 3)
@@ -53,18 +43,11 @@ func main() {
 	fmt.Println(p)
 
 	//sqrt get
-	res, err := sqrt(-9)
+	res, err := sqrt(9)
 	if err != nil {
 		fmt.Println(err)
 	} else {
 		fmt.Println(res)
-	}
-}
-
-func count(task string) {
-	for i := 1; i <= 5; i++ {
-		fmt.Println(i, task)
-		time.Sleep(time.Millisecond * 500)
 	}
 }
 
