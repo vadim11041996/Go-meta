@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"math"
+	"time"
 )
 
 type person struct {
@@ -12,6 +13,11 @@ type person struct {
 }
 
 func main() {
+
+	//goroutine
+	go count("first task")
+	count("seccond task")
+
 	//sum
 	result := sum(2, 3)
 	fmt.Println(result)
@@ -46,6 +52,13 @@ func main() {
 		fmt.Println(err)
 	} else {
 		fmt.Println(res)
+	}
+}
+
+func count(task string) {
+	for i := 1; true; i++ {
+		fmt.Println(i, task)
+		time.Sleep(time.Millisecond * 500)
 	}
 }
 
