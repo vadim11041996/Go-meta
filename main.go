@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"math"
+	"sync"
 	"time"
 )
 
@@ -13,12 +14,15 @@ type person struct {
 }
 
 func main() {
+	var wg sync.WaitGroup
+	wg.Add(1)
 
-	//goroutine
-	go count("first task")
-	go count("seccond task")
+	go func() {
+		count("sheep")
+		wg.Done()
+	}()
 
-	fmt.Scanln() // will execute the code until we press enter
+	wg.Wait()
 
 	//sum
 	result := sum(2, 3)
@@ -58,7 +62,7 @@ func main() {
 }
 
 func count(task string) {
-	for i := 1; true; i++ {
+	for i := 1; i <= 5; i++ {
 		fmt.Println(i, task)
 		time.Sleep(time.Millisecond * 500)
 	}
