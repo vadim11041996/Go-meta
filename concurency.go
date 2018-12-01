@@ -6,6 +6,11 @@ func Concurency() {
 	jobs := make(chan int, 100)
 	results := make(chan int, 100)
 
+	// more workers will get the results more eficient
+	go worker(jobs, results)
+	go worker(jobs, results)
+	go worker(jobs, results)
+	go worker(jobs, results)
 	go worker(jobs, results)
 
 	for i := 0; i < 100; i++ {
